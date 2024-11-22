@@ -11,7 +11,7 @@ const VideoBackground = () => {
         playsInline
         className="w-full h-full object-cover"
       >
-        <source src="/videos/cyber-background.mp4" type="video/mp4" />
+        <source src="/videos/3130182-uhd_3840_2160_30fps.mp4" type="video/mp4" />
       </video>
     </div>
   );
