@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
-function App() {
+const App = () => {
+  const [scannedResult, setScannedResult] = useState("");
+
+  useEffect(() => {
+    const scanner = new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      false
+    );
+
+    scanner.render(
+      (result) => {
+        setScannedResult(result);
+        scanner.clear();
+      },
+      (error) => {
+        console.warn("QR Scan Error: ", error);
+      }
+    );
+
+    return () => scanner.clear();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-2xl font-bold mb-4">Barcode Scanner</h1>
+      {scannedResult ? (
+        <p className="text-green-600 text-lg font-bold">Scanned Code: {scannedResult}</p>
+      ) : (
+        <div id="reader"></div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
