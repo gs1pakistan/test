@@ -1,41 +1,50 @@
-import { useState, useEffect } from "react";
-import { Html5QrcodeScanner } from "html5-qrcode";
+import React, { useState } from "react";
+import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 
-export default function App() {
-  const [barcode, setBarcode] = useState("");
+const App = () => {
+  const [data, setData] = useState("No barcode scanned");
+  const [scanning, setScanning] = useState(false); // State to manage scanning
 
-  useEffect(() => {
-    const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-    
-    scanner.render(
-      (decodedText) => {
-        setBarcode(decodedText);
-        openGS1Search(decodedText);
-      },
-      (error) => console.error("Scanning error:", error)
-    );
+  const handleStartScan = () => {
+    setScanning(true);
+  };
 
-    return () => {
-      scanner.clear();
-    };
-  }, []);
-
-  const openGS1Search = (gtin) => {
-    const gs1URL = `https://www.gs1.org/services/verified-by-gs1?gtin=${gtin}`;
-    window.open(gs1URL, "_blank");
+  const handleStopScan = () => {
+    setScanning(false);
   };
 
   return (
-    <div className="flex flex-col items-center p-4">
-      <h2 className="text-xl font-bold mb-4">Scan Barcode</h2>
-      <div id="reader" className="mb-4"></div>
-      <input
-        type="text"
-        id="barcodeSearch"
-        value={barcode}
-        readOnly
-        className="border p-2 w-full max-w-md text-center"
-      />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4">Barcode Scanner</h1>
+
+      {/* Camera capture */}
+      {scanning && (
+        <div className="bg-white p-4 rounded-lg shadow-lg">
+          <BarcodeScannerComponent
+            onUpdate={(err, result) => {
+              if (result) {
+                setData(result.text); // Update with the barcode data
+                handleStopScan(); // Stop scanning once a barcode is detected
+              }
+            }}
+          />
+        </div>
+      )}
+
+      {/* Button to start scanning */}
+      {!scanning && (
+        <button
+          onClick={handleStartScan}
+          className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg"
+        >
+          Start Scanning
+        </button>
+      )}
+
+      {/* Display the scanned barcode */}
+      <p className="mt-4 text-lg">Scanned Code: <span className="font-semibold">{data}</span></p>
     </div>
   );
-}
+};
+
+export default App;
