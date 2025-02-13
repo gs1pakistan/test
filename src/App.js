@@ -8,20 +8,23 @@ const App = () => {
     Quagga.init(
       {
         inputStream: {
+          name: "Live",
           type: "LiveStream",
+          target: document.querySelector("#scanner-container"), // Attach to div
           constraints: {
             width: 640,
             height: 480,
-            facingMode: "environment", // Use the back camera
+            facingMode: "environment", // Use back camera
           },
         },
         decoder: {
-          readers: ["ean_reader", "upc_reader", "upc_e_reader"], // GTIN-supported formats
+          readers: ["ean_reader", "upc_reader", "upc_e_reader"], // GTIN barcode types
         },
+        locate: true, // Helps detect barcode accurately
       },
       (err) => {
         if (err) {
-          console.error("Error initializing Quagga:", err);
+          console.error("Quagga Init Error:", err);
           return;
         }
         Quagga.start();
@@ -29,11 +32,12 @@ const App = () => {
     );
 
     Quagga.onDetected((data) => {
+      console.log("Detected Barcode:", data.codeResult.code);
       setScannedResult(data.codeResult.code);
-      Quagga.stop(); // Stop scanning after detecting the barcode
+      Quagga.stop(); // Stop scanning after a successful scan
     });
 
-    return () => Quagga.stop();
+    return () => Quagga.stop(); // Cleanup when unmounting
   }, []);
 
   return (
