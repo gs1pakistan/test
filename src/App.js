@@ -1,36 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { Html5QrcodeScanner } from "html5-qrcode";
+import Quagga from "quagga";
 
 const App = () => {
   const [scannedResult, setScannedResult] = useState("");
 
   useEffect(() => {
-    const scanner = new Html5QrcodeScanner(
-      "reader",
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      false
-    );
-
-    scanner.render(
-      (result) => {
-        setScannedResult(result);
-        scanner.clear();
+    Quagga.init(
+      {
+        inputStream: {
+          type: "LiveStream",
+          constraints: {
+            width: 640,
+            height: 480,
+            facingMode: "environment", // Use the back camera
+          },
+        },
+        decoder: {
+          readers: ["ean_reader", "upc_reader", "upc_e_reader"], // GTIN-supported formats
+        },
       },
-      (error) => {
-        console.warn("QR Scan Error: ", error);
+      (err) => {
+        if (err) {
+          console.error("Error initializing Quagga:", err);
+          return;
+        }
+        Quagga.start();
       }
     );
 
-    return () => scanner.clear();
+    Quagga.onDetected((data) => {
+      setScannedResult(data.codeResult.code);
+      Quagga.stop(); // Stop scanning after detecting the barcode
+    });
+
+    return () => Quagga.stop();
   }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold mb-4">Barcode Scanner</h1>
+      <h1 className="text-2xl font-bold mb-4">GTIN Barcode Scanner</h1>
       {scannedResult ? (
-        <p className="text-green-600 text-lg font-bold">Scanned Code: {scannedResult}</p>
+        <p className="text-green-600 text-lg font-bold">
+          Scanned GTIN Code: {scannedResult}
+        </p>
       ) : (
-        <div id="reader"></div>
+        <div id="scanner-container" className="w-full h-64 bg-gray-200"></div>
       )}
     </div>
   );

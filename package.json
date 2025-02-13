@@ -5,6 +5,7 @@
   "dependencies": {
     "cra-template": "1.2.0",
     "html5-qrcode": "^2.3.8",
+    "quagga": "^0.12.1",
     "react": "^19.0.0",
     "react-barcode-reader": "^0.0.2",
     "react-dom": "^19.0.0",
