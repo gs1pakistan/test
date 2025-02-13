@@ -4,13 +4,9 @@
   "private": true,
   "dependencies": {
     "cra-template": "1.2.0",
-    "html5-qrcode": "^2.3.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-qr-barcode-scanner": "^2.0.0",
-    "react-scripts": "5.0.1",
-    "react-webcam-barcode-scanner": "^0.0.2",
-    "web-vitals": "^4.2.4"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
