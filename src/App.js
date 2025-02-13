@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Quagga from "quagga";
-import "./App.css"; // Import the CSS file
+import React, { useEffect, useState } from 'react';
+import Quagga from 'quagga';
+import BarcodeParser from './path/to/BarcodeParser';  // Adjust path
 
 const App = () => {
   const [scannedResult, setScannedResult] = useState("");
@@ -11,24 +11,22 @@ const App = () => {
       return;
     }
 
-    const scannerContainer = document.querySelector("#scanner-container");
-
     Quagga.init(
       {
         inputStream: {
           name: "Live",
           type: "LiveStream",
-          target: scannerContainer, // Attach to div
+          target: document.querySelector("#scanner-container"),
           constraints: {
-            facingMode: "environment", // Use back camera
-            width: { ideal: 1280 }, // Set ideal resolution for better scanning
-            height: { ideal: 720 }, // Set ideal resolution for better scanning
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: "environment",
           },
         },
         decoder: {
-          readers: ["ean_reader", "upc_reader", "upc_e_reader"], // GTIN barcode types
+          readers: ["ean_reader", "upc_reader", "upc_e_reader"],
         },
-        locate: true, // Helps detect barcode accurately
+        locate: true,
       },
       (err) => {
         if (err) {
@@ -40,57 +38,26 @@ const App = () => {
     );
 
     Quagga.onDetected((data) => {
-      console.log("Detected Barcode:", data.codeResult.code);
-      setScannedResult(data.codeResult.code);
-      Quagga.stop(); // Stop scanning after a successful scan
+      const barcode = data.codeResult.code;
+      console.log("Detected Barcode:", barcode);
 
-      // Add flash effect on scan
-      scannerContainer.classList.add("flash");
-      setTimeout(() => scannerContainer.classList.remove("flash"), 500);
+      // Use BarcodeParser to extract GS1 data
+      const parsedData = BarcodeParser.parse(barcode); // Assuming BarcodeParser has a `parse` method
+      console.log("Parsed GS1 Data:", parsedData);
+
+      setScannedResult(parsedData); // Display parsed data
+
+      Quagga.stop(); // Stop scanning after a successful scan
     });
 
-    // Resize handling for mobile view
-    const handleResize = () => {
-      Quagga.stop();
-      Quagga.init({
-        inputStream: {
-          name: "Live",
-          type: "LiveStream",
-          target: scannerContainer,
-          constraints: {
-            facingMode: "environment",
-            width: { ideal: window.innerWidth }, // Dynamic resolution based on screen width
-            height: { ideal: Math.floor((window.innerWidth * 9) / 16) }, // Dynamic height based on aspect ratio
-          },
-        },
-        decoder: {
-          readers: ["ean_reader", "upc_reader", "upc_e_reader"],
-        },
-        locate: true,
-      }, (err) => {
-        if (err) {
-          console.error("Quagga Init Error on Resize:", err);
-          return;
-        }
-        Quagga.start();
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
-
-    return () => {
-      Quagga.stop();
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-    };
+    return () => Quagga.stop(); // Cleanup when unmounting
   }, []);
 
   return (
     <div className="app-container">
-      <h1>GTIN Barcode Scanner</h1>
+      <h1>GS1 Barcode Scanner</h1>
       {scannedResult ? (
-        <p className="scanned-result">Scanned GTIN Code: {scannedResult}</p>
+        <p className="scanned-result">Parsed GS1 Data: {JSON.stringify(scannedResult)}</p>
       ) : (
         <div id="scanner-container">
           <p className="scan-text">Align barcode within the frame</p>
