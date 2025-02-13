@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Quagga from "quagga";
+import "./App.css";
+
 
 const App = () => {
   const [scannedResult, setScannedResult] = useState("");
