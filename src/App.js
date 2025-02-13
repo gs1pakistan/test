@@ -11,16 +11,18 @@ const App = () => {
       return;
     }
 
+    const scannerContainer = document.querySelector("#scanner-container");
+
     Quagga.init(
       {
         inputStream: {
           name: "Live",
           type: "LiveStream",
-          target: document.querySelector("#scanner-container"), // Attach to div
+          target: scannerContainer, // Attach to div
           constraints: {
-            width: 480, // Optimized for mobile
-            height: 320,
             facingMode: "environment", // Use back camera
+            width: { ideal: 1280 }, // Set ideal resolution for better scanning
+            height: { ideal: 720 }, // Set ideal resolution for better scanning
           },
         },
         decoder: {
@@ -43,12 +45,45 @@ const App = () => {
       Quagga.stop(); // Stop scanning after a successful scan
 
       // Add flash effect on scan
-      const scannerContainer = document.querySelector("#scanner-container");
       scannerContainer.classList.add("flash");
       setTimeout(() => scannerContainer.classList.remove("flash"), 500);
     });
 
-    return () => Quagga.stop(); // Cleanup when unmounting
+    // Resize handling for mobile view
+    const handleResize = () => {
+      Quagga.stop();
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: scannerContainer,
+          constraints: {
+            facingMode: "environment",
+            width: { ideal: window.innerWidth }, // Dynamic resolution based on screen width
+            height: { ideal: Math.floor((window.innerWidth * 9) / 16) }, // Dynamic height based on aspect ratio
+          },
+        },
+        decoder: {
+          readers: ["ean_reader", "upc_reader", "upc_e_reader"],
+        },
+        locate: true,
+      }, (err) => {
+        if (err) {
+          console.error("Quagga Init Error on Resize:", err);
+          return;
+        }
+        Quagga.start();
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    return () => {
+      Quagga.stop();
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
   }, []);
 
   return (
