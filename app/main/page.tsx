@@ -7,7 +7,7 @@ import ProductCard from '../components/ProductCard';
 import ErrorAlert from '../components/ErrorAlert';
 import NoResults from '../components/NoResults';
 import './main.css';
-import topImage from '../../../public/top-image.png';
+import topImage from '../../public/top-image.png';
 
 export default function Page() {
     const [gtin, setGtin] = useState('');
