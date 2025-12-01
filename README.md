@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+--
+
+Deployment checklist for Vercel
+
+- 1) Build succeeds locally: `npm run build` — confirmed
+- 2) Add secrets / environment variables on Vercel:
+	- Set `GS1_API_KEY` in your Vercel Project → Settings → Environment Variables (do not put secrets into source code)
+- 3) Connect this repository on Vercel (via the Vercel dashboard) and deploy — Vercel will auto-detect Next.js settings.
+- 4) If you want predictable Node version, set an `engines` field in `package.json` or configure the Runtime in Vercel project settings.
+
+Important note about the API key
+
+The project includes `app/api/vbg-lookup/route.js` which reads `process.env.GS1_API_KEY`. For safety: remove any hard-coded keys from `route.js` and use `GS1_API_KEY` from the environment. The repository now contains a `.env.example` to show required variables.
+
+If you'd like, I can create a small `vercel.json` with redirects or runtime options — say the word and I'll add it.

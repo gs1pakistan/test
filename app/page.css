@@ -1,0 +1,355 @@
+/* merged from app/main/main.css - main page styles */
+.container, main, .page-wrapper, section {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+.wrapper, main, section {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/*-------------- Header --------------*/
+.header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.header-subtitle {
+  color: #4b5563;
+}
+
+/* Top Hero Image */
+.falconTopImage {
+  width: 100%;
+  height: 30vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/*-------------- GS1 Banner --------------*/
+.gs1-banner {
+  background-color: #c6f6d5;
+  border-left: 4px solid #10b981;
+  padding: 0.5rem 0.5rem;
+  margin-bottom: 0.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.gs1-logo { width: 3rem; height: 3rem; flex-shrink: 0; }
+.gs1-info-icon { width: 1.25rem; height: 1.25rem; color: #059669; }
+.gs1-text { color: #065f46; font-size: 0.8rem; font-weight: 500; }
+
+/*-------------- Search Card --------------*/
+.search-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  margin-bottom: 0.1rem
+}
+
+.search-form { display: flex; gap: .75rem; }
+.search-input-wrapper { flex: 1; }
+
+.search-input {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: .375rem;
+  font-size: .875rem;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+.input-hint { font-size: .75rem; color:#6b7280; margin-top:.25rem; }
+
+/*-------------- Buttons --------------*/
+.btn {
+  padding:.75rem 1rem;
+  border:none;
+  border-radius:.375rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  cursor:pointer;
+  font-weight:500;
+  font-size:.875rem;
+  transition:.2s;
+}
+
+.btn-scan { background:#10b981; color:#fff; }
+.btn-scan:hover { background:#059669; }
+
+.btn-search {
+  padding: .75rem 1.5rem;
+  background:#2563eb;
+  color:#fff;
+}
+.btn-search:hover { background:#1d4ed8; }
+.btn-search:disabled { background:#d1d5db; cursor:not-allowed; }
+
+.btn-icon { width:1.25rem; height:1.25rem; }
+
+.btn-text-hidden-sm { display:none; }
+@media (min-width:640px){ .btn-text-hidden-sm{display:inline;} }
+
+/*-------------- Tabs --------------*/
+.tabs-container {
+  background:#fff;
+  border-radius:.5rem .5rem 0 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.1);
+}
+
+.tabs {
+  display:flex;
+  border-bottom:2px solid #e5e7eb;
+}
+
+.tab {
+  flex:1;
+  padding:1rem 1.5rem;
+  border:none;
+  background:none;
+  font-size:.95rem;
+  color:#6b7280;
+  font-weight:500;
+  border-bottom:3px solid transparent;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.tab:hover { color:#111827; background:#f9fafb; }
+.tab.active { color:#ffffff; background:#001691; border-bottom-color:#ff6b35; }
+
+/*-------------- Scanner Modal --------------*/
+.scanner-overlay {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.95);
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+
+.scanner-container { width:100%; max-width:42rem; }
+
+.scanner-header {
+  background:linear-gradient(to right,#10b981,#059669);
+  color:#fff;
+  padding:1rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-radius:.5rem .5rem 0 0;
+}
+
+.scanner-title { font-size:1.25rem; font-weight:bold; display:flex; gap:.5rem; }
+.scanner-subtitle { font-size:.875rem; color:#d1fae5; margin-top:.25rem; }
+
+.scanner-close-btn {
+  background:transparent;
+  border:none;
+  color:#fff;
+  padding:.5rem;
+  border-radius:.375rem;
+}
+.scanner-close-btn:hover { background:rgba(255,255,255,.2); }
+
+.scanner-body { background:#000; }
+.scanner-viewport { width:100%; min-height:400px; }
+.scanner-loading {
+  position:absolute; inset:0;
+  display:flex; justify-content:center; align-items:center;
+}
+
+.scanner-footer {
+  text-align:center;
+  padding:1rem;
+  background:linear-gradient(to top,black,transparent);
+  border-radius:0 0 .5rem .5rem;
+}
+.scanner-footer-text { color:#fff; font-size:.875rem; }
+
+/*-------------- Alerts --------------*/
+.alert { padding:1rem; border-radius:.5rem; display:flex; gap:.75rem; margin-bottom:1.5rem; }
+.alert-error { background:#fef2f2; border:1px solid #fecaca; }
+.alert-warning { background:#fffbeb; border:1px solid #fde68a; }
+
+.alert-icon { width:1.25rem; height:1.25rem; margin-top:.125rem; }
+.alert-icon-error{color:#dc2626;}
+.alert-icon-warning{color:#d97706;}
+
+.alert-title{font-weight:600;color:#7f1d1d;}
+.alert-text{color:#b91c1c;font-size:.875rem;}
+.alert-hint{color:#dc2626;font-size:.75rem;margin-top:.5rem;}
+
+/*-------------- Product Cards --------------*/
+.product-list { display:flex; flex-direction:column; gap:1.5rem; }
+
+.product-card {
+  background:#fff;
+  border-radius:0 0 .5rem .5rem;
+  box-shadow:0 1px 3px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+
+.product-title-section{
+  background:#fff;
+  padding:0.5rem;
+  border-bottom:1px solid #e5e7eb;
+}
+.gs1-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.product-main-title{
+  font-size:1rem;
+  font-weight:600;
+  color:#1e40af;
+  line-height:1.3;
+}
+
+/* Product Body */
+.product-body{
+  padding:2rem;
+  display:grid;
+  gap:2rem;
+}
+
+.product-image-section{
+  display:flex;
+  justify-content:center;
+}
+
+.product-image{
+  width:100%;
+  max-width:12rem;
+  border-radius:.375rem;
+}
+
+.product-details-section{
+  display:flex;
+  flex-direction:column;
+  gap:0.1rem;
+}
+
+/* Detail Rows */
+.detail-row{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.5rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid #f3f4f6;
+}
+.detail-row:last-child{border-bottom:none;}
+
+.detail-label{color:#6b7280;font-weight:500;font-size:.875rem;}
+.detail-value{color:#1e40af;font-weight:500;font-size:.875rem;}
+.detail-value-bold{font-weight:600;color:#111827;}
+.detail-value-link{color:#2563eb;text-decoration:none;word-break:break-all;}
+.detail-value-link:hover{text-decoration:underline;}
+
+/*-------------- Company Info --------------*/
+.company-info-section{padding:1.2rem;}
+.company-info-title{font-size:1rem;font-weight:600;color:#1e40af;margin-bottom:2rem;}
+
+.company-details{display:flex;flex-direction:column;gap:1.25rem;}
+
+.company-address{display:flex;flex-direction:column;gap:.25rem;}
+.company-address-line{color:#1e40af;font-weight:500;font-size:.875rem;}
+
+.company-phone{
+  display:flex;align-items:center;gap:.5rem;
+  color:#2563eb;font-size:.875rem;font-weight:500;
+  text-decoration:none;
+}
+.company-phone:hover{text-decoration:underline;}
+.phone-icon{width:1rem;height:1rem;}
+
+.company-footer{
+  margin-top:2rem;padding-top:1.5rem;
+  border-top:1px solid #e5e7eb;
+  color:#6b7280;font-size:.875rem;
+}
+
+/*-------------- Links Section --------------*/
+.links-section { grid-column:span 2; margin-top:1rem; }
+.links-title{
+  font-size:1.125rem;font-weight:600;color:#111827;
+  border-bottom:2px solid #e5e7eb;
+  margin-bottom:1rem;padding-bottom:.5rem;
+}
+
+.link-group{
+  background:#f9fafb;
+  padding:1rem;border-radius:.375rem;
+  border:1px solid #e5e7eb;
+  margin-bottom:.75rem;
+}
+
+.link-group-title{
+  font-size:.875rem;font-weight:600;
+  border-bottom:1px solid #d1d5db;
+  margin-bottom:.75rem;padding-bottom:.5rem;
+}
+
+.link-item{
+  display:block;
+  padding:.5rem 0;
+  border-bottom:1px solid #e5e7eb;
+  color:#2563eb;font-size:.875rem;
+  text-decoration:none;
+}
+.link-item:last-child{border-bottom:none;}
+.link-item:hover{text-decoration:underline;}
+
+/*-------------- No Results --------------*/
+.no-results{
+  background:#fffbeb;border:1px solid #fde68a;
+  padding:2rem;border-radius:.5rem;text-align:center;
+}
+.no-results-icon{width:3rem;height:3rem;color:#d97706;margin-bottom:.75rem;}
+.no-results-title{font-size:1.125rem;font-weight:600;color:#111827;margin-bottom:.5rem;}
+.no-results-text{color:#4b5563;font-size:.875rem;}
+
+/* Spinner */
+.animate-spin{animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+
+/*-------------- Responsive Fixes --------------*/
+
+@media (min-width:640px) {
+  .detail-row { grid-template-columns:12rem 1fr; gap:2rem; }
+}
+
+@media (min-width:768px) {
+  .product-body { grid-template-columns:auto 1fr; gap:3rem; }
+  .product-image{max-width:15rem;}
+}
+
+/* Small Screens Fix */
+@media (max-width:480px){
+  .falconTopImage{ height:11vh; }
+}
