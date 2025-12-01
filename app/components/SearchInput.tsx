@@ -35,7 +35,7 @@ export default function SearchInput({
                     }}
                 />
                 <span className="si-hint">
-                    {gtin.length}/14 digits (zeros added automatically)
+                    {gtin.length}/14 digits  (zero added automatically)
                 </span>
             </div>
 
