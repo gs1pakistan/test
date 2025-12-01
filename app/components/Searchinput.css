@@ -1,0 +1,107 @@
+/* Card container */
+.si-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Input */
+.si-input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.si-input {
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.si-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.si-hint {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+/* Buttons container (single div for both buttons) */
+.si-btn-wrapper {
+    display: flex;
+    gap: 12px;
+    justify-content: center; /* buttons aligned to the center */
+}
+
+.si-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+}
+
+.si-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Scan button */
+.si-scan {
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+.si-scan:hover {
+    background-color: #e5e7eb;
+}
+
+/* Search button */
+.si-search {
+    background-color: #4f46e5;
+    color: #fff;
+}
+
+.si-search:hover {
+    background-color: #4338ca;
+}
+
+/* Icon */
+.si-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Loader spinning */
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .si-btn-wrapper {
+        flex-direction: column; /* stack buttons on small screens */
+        gap: 8px;
+    }
+}
