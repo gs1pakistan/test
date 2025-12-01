@@ -1,6 +1,6 @@
 // app/page.tsx
 import Header from './components/Header';
-import Main from './components/Main/page';
+import Main from './Main/page';
 
 
 export const metadata = {

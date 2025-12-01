@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
-import SearchInput from '../SearchInput';
-import BarcodeScanner from '../BarcodeScanner';
-import ProductCard from '../ProductCard';
-import ErrorAlert from '../ErrorAlert';
-import NoResults from '../NoResults';
+import SearchInput from '../components/SearchInput';
+import BarcodeScanner from '../components/BarcodeScanner';
+import ProductCard from '../components/ProductCard';
+import ErrorAlert from '../components/ErrorAlert';
+import NoResults from '../components/NoResults';
 import './main.css';
 import topImage from '../../../public/top-image.png';
 
