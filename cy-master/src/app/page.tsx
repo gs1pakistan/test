@@ -202,7 +202,7 @@ export default function HomePage() {
         { label: "100 GTIN-13s", fee: 13957, pra: 2233, total: 16190 },
         { label: "1,000 GTIN-13s", fee: 34891, pra: 5583, total: 40474 },
         { label: "10,000 GTIN-13s", fee: 156311, pra: 25010, total: 181321 },
-        { label: "100,000 GTIN-13s", fee: 358691, pra: 57391, total: 416082 },
+        { label: "100,000 GTIN-13s", fee: 358691, pra: 57391, total: 416081 },
       ],
       verificationFees: [
         {
@@ -236,7 +236,7 @@ export default function HomePage() {
         { label: "100 GTIN-13s", fee: 13957, pra: 2233, total: 16190 },
         { label: "1,000 GTIN-13s", fee: 34891, pra: 5583, total: 40474 },
         { label: "10,000 GTIN-13s", fee: 156311, pra: 25010, total: 181321 },
-        { label: "100,000 GTIN-13s", fee: 358691, pra: 57391, total: 416082 },
+        { label: "100,000 GTIN-13s", fee: 358691, pra: 57391, total: 416081 },
       ],
       verificationFees: [
         {
@@ -441,7 +441,7 @@ export default function HomePage() {
                   {category.key === "textile" && (
                     <p className="fee-note">
                       * Members availing 50% rate for Entrance Fee will be
-                      required to pay the balance amount of PKR 20,934 + 16% PRA
+                      required to pay the balance amount of PKR 32,600 + 16% PRA
                       when applying for additional numbers.
                     </p>
                   )}

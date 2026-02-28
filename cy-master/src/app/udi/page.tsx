@@ -3,8 +3,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { TelephoneInput } from '@/components/TelephoneInput';
 import './udi.css';
+import CompanyName from "@/components/companyname";
+import Telephone from "@/components/telephone";
 
 interface ContactInfo {
   designation: string;
@@ -176,7 +177,7 @@ const GeneralForm: React.FC = () => {
     city: '',
     province: '',
     postCode: '',
-    telephone: '',
+    telephone: '+92',
     email: '',
     ntn: '',
     companyRegNo: '',
@@ -192,7 +193,7 @@ const GeneralForm: React.FC = () => {
       firstName: '',
       lastName: '',
       email: '',
-      telephone: '',
+      telephone: '+92',
     },
     keyContact: {
       designation: '',
@@ -200,7 +201,7 @@ const GeneralForm: React.FC = () => {
       firstName: '',
       lastName: '',
       email: '',
-      telephone: '',
+      telephone: '+92',
     },
     accountsContact: {
       designation: '',
@@ -208,7 +209,7 @@ const GeneralForm: React.FC = () => {
       firstName: '',
       lastName: '',
       email: '',
-      telephone: '',
+      telephone: '+92',
     },
     selectedCategories: [],
     selectedTypeofProduct: [],
@@ -457,6 +458,21 @@ const GeneralForm: React.FC = () => {
   };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Updated validateStep function with detailed error checking
   const validateStep = (): { isValid: boolean; errors: string[] } => {
     const errors: string[] = [];
@@ -464,7 +480,17 @@ const GeneralForm: React.FC = () => {
     // Helper functions
     
     const isValidTelephone = (value: string): boolean => {
-      return value.startsWith('92') && value.length >= 10 && value.length <= 12;
+      return value.startsWith('+92') && value.length >= 11;
+    };
+    const isValidCeoTelephone = (value: string): boolean => {
+      return value.startsWith('+92') && value.length >= 11;
+    };
+    const isValidKeyContactTelephone = (value: string): boolean => {
+      return value.startsWith('+92') && value.length >= 11;
+    };
+
+    const isValidAccountsTelephone = (value: string): boolean => {
+      return value.startsWith('+92') && value.length >= 11;
     };
     const isValidWebsite = (value: string): boolean => {
       if (value === '') return true;
@@ -509,7 +535,7 @@ if (!formData.postCode?.trim()) {
 } else if (formData.postCode.length !== 5) {
   errors.push("Postal Code must be exactly 5 digits long");
 } else {
-  const postCodeNum = parseInt(formData.postCode, 10);
+  const postCodeNum = parseInt(formData.postCode);
   if (postCodeNum < 10000 || postCodeNum > 99999) {
     errors.push("Postal Code must be between 10000 and 99999");
   }
@@ -519,12 +545,12 @@ if (!formData.postCode?.trim()) {
         if (!formData.telephone?.trim()) {
           errors.push("Telephone number is required");
         } else if (!isValidTelephone(formData.telephone)) {
-          if (!formData.telephone.startsWith('92')) {
-            errors.push("Telephone number must start with country code '92'");
-          } else if (formData.telephone.length < 10) {
-            errors.push("must have at least 08 digits after country code '92'");
+          if (!formData.telephone.startsWith('+92')) {
+            errors.push("Telephone number must start with country code '+92'");
+          } else if (formData.telephone.length < 11) {
+            errors.push("must have at least 08 digits after country code '+92'");
           } else {
-            errors.push("Invalid telephone number format (e.g., 923001234567)");
+            errors.push("Invalid telephone number format (e.g., +923001234567)");
           }
         }
 
@@ -622,13 +648,13 @@ if (!formData.postCode?.trim()) {
             if (!/^[a-zA-Z\s]+$/.test(value)) {
               errors.push(`${label} should contain only letters and spaces`);
             }
-          } else if (field === 'telephone' && !isValidTelephone(value)) {
-            if (!value.startsWith('92')) {
-              errors.push(`${label} must start with country code '92'`);
-            } else if (value.length < 10) {
-              errors.push(`${label} must have at least 08 digits after country code '92'`);
+          } else if (field === 'telephone' && !isValidCeoTelephone(value)) {
+            if (!value.startsWith('+92')) {
+              errors.push(`${label} must start with country code '+92'`);
+            } else if (value.length < 11) {
+              errors.push(`${label} must have at least 08 digits after country code '+92'`);
             } else {
-              errors.push(`Invalid ${label.toLowerCase()} format (e.g., 923001234567)`);
+              errors.push(`Invalid ${label.toLowerCase()} format (e.g., +923001234567)`);
             }
           }
         });
@@ -654,13 +680,13 @@ if (!formData.postCode?.trim()) {
             if (!/^[a-zA-Z\s]+$/.test(value)) {
               errors.push(`${label} should contain only letters and spaces`);
             }
-          } else if (field === 'telephone' && !isValidTelephone(value)) {
-            if (!value.startsWith('92')) {
-              errors.push(`${label} must start with country code '92'`);
-            } else if (value.length < 10) {
-              errors.push(`${label} must have at least 08 digits after country code '92'`);
+          } else if (field === 'telephone' && !isValidKeyContactTelephone(value)) {
+            if (!value.startsWith('+92')) {
+              errors.push(`${label} must start with country code '+92'`);
+            } else if (value.length < 11) {
+              errors.push(`${label} must have at least 08 digits after country code '+92'`);
             } else {
-              errors.push(`Invalid ${label.toLowerCase()} format (e.g., 923001234567)`);
+              errors.push(`Invalid ${label.toLowerCase()} format (e.g., +923001234567)`);
             }
           }
         });
@@ -686,13 +712,13 @@ if (!formData.postCode?.trim()) {
             if (!/^[a-zA-Z\s]+$/.test(value)) {
               errors.push(`${label} should contain only letters and spaces`);
             }
-          } else if (field === 'telephone' && !isValidTelephone(value)) {
-            if (!value.startsWith('92')) {
-              errors.push(`${label} must start with country code '92'`);
-            } else if (value.length < 10) {
-              errors.push(`${label} must have at least 08 digits after country code '92'`);
+          } else if (field === 'telephone' && !isValidAccountsTelephone(value)) {
+            if (!value.startsWith('+92')) {
+              errors.push(`${label} must start with country code '+92'`);
+            } else if (value.length < 11) {
+              errors.push(`${label} must have at least 08 digits after country code '+92'`);
             } else {
-              errors.push(`Invalid ${label.toLowerCase()} format (e.g., 923001234567)`);
+              errors.push(`Invalid ${label.toLowerCase()} format (e.g., +923001234567)`);
             }
           }
         });
@@ -791,16 +817,7 @@ if (!formData.postCode?.trim()) {
 
   const prevStep = () => {
     if (currentStep > 1) {
-      const prevStepNum = currentStep - 1;
-      setCurrentStep(prevStepNum);
-
-      // Immediately validate the previous step to show any errors
-      const validation = validateStep();
-      if (!validation.isValid) {
-        setShowErrors(true);
-      } else {
-        setShowErrors(false);
-      }
+      setCurrentStep(currentStep - 1);
     }
   };
 
@@ -809,31 +826,15 @@ if (!formData.postCode?.trim()) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate ALL steps before submission (not just current step)
-    const allErrors: string[] = [];
-    for (let step = 1; step <= 7; step++) {
-      // Temporarily set step to validate all steps
-      setCurrentStep(step);
-      const validation = validateStep();
-      if (!validation.isValid) {
-        allErrors.push(`Step ${step}:`);
-        allErrors.push(...validation.errors.map((err) => `  • ${err}`));
-      }
-    }
+    const validation = validateStep();
 
-    if (allErrors.length > 0) {
+    if (!validation.isValid) {
       setShowErrors(true);
-      showError("Cannot submit - Please fix all validation errors:\n\n" + allErrors.join("\n"));
-
-      // Navigate to first step with errors
-      for (let step = 1; step <= 7; step++) {
-        setCurrentStep(step);
-        const validation = validateStep();
-        if (!validation.isValid) {
-          setCurrentStep(step);
-          break;
-        }
-      }
+      let errorMessage = 'Please fix the following issues:\n\n';
+      validation.errors.forEach((error, index) => {
+        errorMessage += `${index + 1}. ${error}\n`;
+      });
+      showError(errorMessage.trim());
       return;
     }
 
@@ -888,114 +889,10 @@ if (!formData.postCode?.trim()) {
                 name="formName"
                 value={formData.formName}
               />
-              <div className="form-group">
-                <label htmlFor="companyName">Company Name *</label>
-                <input
-                  type="text"
-                  id="companyName"
-                  name="companyName"
-                  value={formData.companyName}
-                  onChange={(e) => {
-                    let value = e.target.value;
-
-                    // Character limit check - prevent input beyond 120 characters
-                    if (value.length > 120) {
-                      return; // Don't update if exceeds limit
-                    }
-
-                    // Remove leading/trailing spaces and multiple consecutive spaces
-                    value = value.replace(/^\s+/, ''); // Remove leading spaces
-                    value = value.replace(/\s+/g, ' '); // Replace multiple spaces with single space
-                    // Only allow specific characters: letters, numbers, and safe punctuation
-                    const allowedCharsRegex = /^[a-zA-Z0-9&.,\-(),'\s]*$/;
-                    if (!allowedCharsRegex.test(value)) {
-                      // Remove invalid characters
-                      value = value.replace(/[^a-zA-Z0-9&.,\-(),'\s]/g, '');
-                    }
-                    // Add spaces around ampersands automatically
-                    value = value.replace(/\s*&\s*/g, ' & ');
-                    // Clean up any double spaces that might result from the ampersand formatting
-                    value = value.replace(/\s+/g, ' ');
-                    // Ensure it doesn't start or end with special characters (except when typing)
-                    if (value.length > 0) {
-                      // Don't allow starting with special characters
-                      if (!/^[a-zA-Z0-9]/.test(value.charAt(0))) {
-                        value = value.replace(/^[^a-zA-Z0-9]+/, '');
-                      }
-                      // Apply title case formatting
-                      value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
-                      // Handle common business suffixes properly
-                      value = value.replace(/\b(pvt)\s+(ltd)\b/gi, '(Pvt) Ltd');
-                      value = value.replace(/\bsmc-pvt\s+ltd\b/gi, 'SMC-Pvt Ltd');
-                      value = value.replace(/\bcompany\s+ltd\b/gi, 'Company Ltd');
-                      value = value.replace(/\bcorporation\b/gi, 'Corporation');
-                      value = value.replace(/\bltd\b/gi, 'Ltd');
-                      value = value.replace(/\bpvt\b/gi, 'Pvt');
-                      value = value.replace(/\bllc\b/gi, 'LLC');
-                      value = value.replace(/\bllp\b/gi, 'LLP');
-                      value = value.replace(/\binc\b/gi, 'Inc');
-                      value = value.replace(/\bcorp\b/gi, 'Corp');
-                      value = value.replace(/\bco\b/gi, 'Co');
-                    }
-                    setFormData({ ...formData, companyName: value });
-                  }}
-                  onBlur={(e) => {
-                    let value = e.target.value.trim();
-                    // Remove trailing special characters
-                    value = value.replace(/[^a-zA-Z0-9]+$/, '');
-                    // Add full stop at the end if not already present and value exists
-                    if (value.length > 0 && !value.endsWith('.')) {
-                      value += '.';
-                    }
-                    setFormData({ ...formData, companyName: value });
-                  }}
-                  pattern="^[a-zA-Z0-9][a-zA-Z0-9&.,\-(),'\s]*[a-zA-Z0-9]\.?$"
-                  title="Company name must be 3-120 characters, start and end with letter/number, and contain only letters, numbers, and safe punctuation (&, ., -, ,, (, ), ')"
-                  required
-                  maxLength={120}
-                />
-                <p className='under-inputbox'>Note: Ensure the company name matches NTN.</p>
-                {/* Validation Error Messages */}
-                {formData.companyName && (
-                  <>
-                    {/* Success Message */}
-                    {formData.companyName.length >= 3 &&
-                      formData.companyName.length <= 120 &&
-                      /^[a-zA-Z0-9]/.test(formData.companyName.charAt(0)) &&
-                      /[a-zA-Z0-9.]$/.test(formData.companyName) &&
-                      !/\s{2,}/.test(formData.companyName) && (
-                        <p className="successsmessage" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
-                          ✓ Your formatting is correct.
-                        </p>
-                      )}
-
-                    {/* Error Messages */}
-                    {formData.companyName.length < 3 && (
-                      <p className="error-message" style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
-                        Company name must be at least 3 characters long.
-                      </p>
-                    )}
-
-                    {formData.companyName.length > 120 && (
-                      <p className="successsmessage" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
-                        ✓ Your formatting is correct.
-                      </p>
-                    )}
-
-                    {formData.companyName.length > 0 && !/^[a-zA-Z0-9]/.test(formData.companyName.charAt(0)) && (
-                      <p className="error-message" style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
-                        Company name must start with a letter or number.
-                      </p>
-                    )}
-
-                    {/\s{2,}/.test(formData.companyName) && (
-                      <p className="error-message" style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
-                        Avoid multiple spaces between words.
-                      </p>
-                    )}
-                  </>
-                )}
-              </div>
+              <CompanyName
+                value={formData.companyName}
+                onChange={(value) => setFormData({ ...formData, companyName: value })}
+              />
 
 
 
@@ -1013,6 +910,9 @@ if (!formData.postCode?.trim()) {
                     if (value.length > 200) {
                       return; // Don't update if exceeds limit
                     }
+
+                    // Bug 2 fix: Replace embedded period with space to prevent word merge
+                    value = value.replace(/\.(?=[^\s])/g, ' ');
 
                     // Step 1: Remove invalid characters - sirf letters, numbers, spaces, #, -, /, comma allow (no full stop in middle)
                     value = value.replace(/[^a-zA-Z0-9\s#\-/,]/g, '');
@@ -1040,6 +940,9 @@ if (!formData.postCode?.trim()) {
                     // Step 7: Multiple commas ko single comma se replace karna
                     value = value.replace(/,{2,}/g, ',');
 
+                    // Bug 1 fix: Remove trailing comma-space
+                    value = value.replace(/,\s+$/, ',');
+
                     // Form data update karna
                     setFormData((prevData) => ({
                       ...prevData,
@@ -1049,8 +952,8 @@ if (!formData.postCode?.trim()) {
                   onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
                     let value = e.target.value.trim();
 
-                    // Agar address empty nahi hai aur full stop se end nahi ho raha
-                    if (value && !value.endsWith('.')) {
+                    // Bug 3 fix: Agar address empty nahi hai aur full stop se end nahi ho raha aur length 200 se kam hai
+                    if (value && !value.endsWith('.') && value.length < 200) {
                       value += '.';
                       setFormData((prevData) => ({
                         ...prevData,
@@ -1178,6 +1081,11 @@ if (!formData.postCode?.trim()) {
   />
 
   {/* Validation Messages */}
+  {showErrors && !formData.postCode && (
+    <p className="error-message" style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
+      Postal Code is required.
+    </p>
+  )}
   {formData.postCode && (
     <>
       {formData.postCode.length < 5 && (
@@ -1185,35 +1093,27 @@ if (!formData.postCode?.trim()) {
           Postal code must be 5 digits long.
         </p>
       )}
-      {formData.postCode.length === 5 && (() => {
-        const postCodeNum = parseInt(formData.postCode, 10);
-        if (postCodeNum < 10000 || postCodeNum > 99999) {
-          return (
-            <p className="error-message" style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
-              Postal code must be between 10000 and 99999.
-            </p>
-          );
-        }
-        return (
-          <p className="successsmessage" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
-            ✓ Valid postal code.
-          </p>
-        );
-      })()}
+      {formData.postCode.length === 5 && parseInt(formData.postCode) >= 10000 && (
+        <p className="successsmessage" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+          ✓ Valid postal code.
+        </p>
+      )}
+      {formData.postCode.length === 5 && parseInt(formData.postCode) < 10000 && (
+        <p className="error-message" style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
+          Postal code must be between 10000 and 99999.
+        </p>
+      )}
     </>
   )}
 </div>
 
 
-              <div className="form-group">
-                <label htmlFor="telephone">Telephone (Including City Codes) *</label>
-                <TelephoneInput
-                  id="telephone"
-                  value={formData.telephone}
-                  onChange={(v) => setFormData({ ...formData, telephone: v })}
-                  required
-                />
-              </div>
+              <Telephone
+                id="telephone"
+                label="Telephone (Including City Codes) *"
+                value={formData.telephone}
+                onChange={(value) => setFormData({ ...formData, telephone: value })}
+              />
 
 
 
@@ -1288,7 +1188,7 @@ if (!formData.postCode?.trim()) {
                     )}
 
                     {/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) && formData.email.length >= 5 && formData.email.length <= 70 && (
-                      <p className="success-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+                      <p className="successs-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
                         ✓ Valid email format
                       </p>
                     )}
@@ -1407,14 +1307,14 @@ if (!formData.postCode?.trim()) {
 
     {/* Short NTN check (1234567-8) */}
     {formData.ntn.length === 9 && /^[A-Z0-9]{7}-[A-Z0-9]$/.test(formData.ntn) && (
-      <p className="success-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+      <p className="successs-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
         ✓ Valid NTN format
       </p>
     )}
 
     {/* Long CNIC-like NTN check (42301-8776868-8) */}
     {formData.ntn.length === 15 && /^[0-9]{5}-[0-9]{7}-[0-9]$/.test(formData.ntn) && (
-      <p className="success-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+      <p className="successs-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
         ✓ Valid CNIC format. Kindly share images of your CNIC (both front and back sides) to info@gs1pk.org
       </p>
     )}
@@ -1733,7 +1633,7 @@ if (!formData.postCode?.trim()) {
                     value = value.replace(/\s+/g, ' ');
 
                     // Capitalize first letter of each word
-                    value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     // Don't allow starting with space or hyphen
                     if (value.startsWith(' ') || value.startsWith('-')) {
@@ -1795,7 +1695,7 @@ if (!formData.postCode?.trim()) {
                     value = value.replace(/\s+/g, ' ');
 
                     // Capitalize first letter of each word
-                    value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     // Don't allow starting with space or hyphen
                     if (value.startsWith(' ') || value.startsWith('-')) {
@@ -1985,7 +1885,7 @@ if (!formData.postCode?.trim()) {
 
                       return isValidFormat && hasNoConsecutiveDots && hasReasonableLength;
                     })() && (
-                        <p className="success-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+                        <p className="successs-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
                           ✓ Valid email format
                         </p>
                       )}
@@ -1993,23 +1893,20 @@ if (!formData.postCode?.trim()) {
                 )}
               </div>
 
-              <div className="form-group">
-                <label htmlFor="ceo-telephone">Mobile or Telephone Number *</label>
-                <TelephoneInput
-                  id="ceo-telephone"
-                  value={formData.ceo.telephone}
-                  onChange={(v) => handleContactChange('ceo', 'telephone', v)}
-                  required
-                />
-              </div>
+              <Telephone
+                id="ceo-telephone"
+                label="Mobile or Telephone Number *"
+                value={formData.ceo.telephone}
+                onChange={(value) => handleContactChange('ceo', 'telephone', value)}
+              />
             </div>
           </div>
         );
       case 4:
         return (
           <div className="step-content">
-            <h2>Key Contact for GS1 Activate Tool</h2>
-            <h3>Kindly enter information of the person responsible for using the GS1 Activate Tool.</h3>
+            <h2>Key Contact</h2>
+            <h3>Kindly enter the information of the person responsible for maintaining and managing the master data.</h3>
             <div className="form-grid">
               <div className="form-group">
 
@@ -2019,12 +1916,15 @@ if (!formData.postCode?.trim()) {
                   id="keyContact-designation"
                   value={formData.keyContact.designation}
                   onChange={(e) => {
-                    const value = e.target.value;
+                    let value = e.target.value;
 
                     // Character limit check - prevent input beyond 50 characters
                     if (value.length > 50) {
                       return; // Don't update if exceeds limit
                     }
+
+                    // Apply title case formatting
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     handleContactChange('keyContact', 'designation', value);
                   }}
@@ -2070,7 +1970,7 @@ if (!formData.postCode?.trim()) {
                     value = value.replace(/\s+/g, ' ');
 
                     // Capitalize first letter of each word
-                    value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     // Don't allow starting with space or hyphen
                     if (value.startsWith(' ') || value.startsWith('-')) {
@@ -2132,7 +2032,7 @@ if (!formData.postCode?.trim()) {
                     value = value.replace(/\s+/g, ' ');
 
                     // Capitalize first letter of each word
-                    value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     // Don't allow starting with space or hyphen
                     if (value.startsWith(' ') || value.startsWith('-')) {
@@ -2333,7 +2233,7 @@ if (!formData.postCode?.trim()) {
 
                       return isValidFormat && hasNoConsecutiveDots && hasReasonableLength;
                     })() && (
-                        <p className="success-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+                        <p className="successs-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
                           ✓ Valid email format
                         </p>
                       )}
@@ -2347,15 +2247,12 @@ if (!formData.postCode?.trim()) {
 
 
 
-              <div className="form-group">
-                <label htmlFor="keyContact-telephone">Mobile or Telephone Number *</label>
-                <TelephoneInput
-                  id="keyContact-telephone"
-                  value={formData.keyContact.telephone}
-                  onChange={(v) => handleContactChange('keyContact', 'telephone', v)}
-                  required
-                />
-              </div>
+              <Telephone
+                id="keyContact-telephone"
+                label="Mobile or Telephone Number *"
+                value={formData.keyContact.telephone}
+                onChange={(value) => handleContactChange('keyContact', 'telephone', value)}
+              />
             </div>
           </div>
         );
@@ -2372,12 +2269,15 @@ if (!formData.postCode?.trim()) {
                   id="accountsContact-designation"
                   value={formData.accountsContact.designation}
                   onChange={(e) => {
-                    const value = e.target.value;
+                    let value = e.target.value;
 
                     // Character limit check - prevent input beyond 50 characters
                     if (value.length > 50) {
                       return; // Don't update if exceeds limit
                     }
+
+                    // Apply title case formatting
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     handleContactChange('accountsContact', 'designation', value);
                   }}
@@ -2414,7 +2314,7 @@ if (!formData.postCode?.trim()) {
                       value = value.substring(0, 35);
                     }
                     value = value.replace(/\s+/g, ' ');
-                    value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
                     if (value.startsWith(' ') || value.startsWith('-')) {
                       value = value.substring(1);
                     }
@@ -2473,7 +2373,7 @@ if (!formData.postCode?.trim()) {
                     value = value.replace(/\s+/g, ' ');
 
                     // Capitalize first letter of each word
-                    value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 
                     // Don't allow starting with space or hyphen
                     if (value.startsWith(' ') || value.startsWith('-')) {
@@ -2669,7 +2569,7 @@ if (!formData.postCode?.trim()) {
 
                       return isValidFormat && hasNoConsecutiveDots && hasReasonableLength;
                     })() && (
-                        <p className="success-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
+                        <p className="successs-message" style={{ color: 'green', fontSize: '12px', marginTop: '4px' }}>
                           ✓ Valid email format
                         </p>
                       )}
@@ -2693,15 +2593,12 @@ if (!formData.postCode?.trim()) {
 
 
 
-              <div className="form-group">
-                <label htmlFor="accountsContact-telephone">Mobile or Telephone Number *</label>
-                <TelephoneInput
-                  id="accountsContact-telephone"
-                  value={formData.accountsContact.telephone}
-                  onChange={(v) => handleContactChange('accountsContact', 'telephone', v)}
-                  required
-                />
-              </div>
+              <Telephone
+                id="accountsContact-telephone"
+                label="Mobile or Telephone Number *"
+                value={formData.accountsContact.telephone}
+                onChange={(value) => handleContactChange('accountsContact', 'telephone', value)}
+              />
             </div>
           </div>
         );
@@ -3121,12 +3018,24 @@ if (!formData.postCode?.trim()) {
                   name="userName"
                   value={formData.userName}
                   onChange={(e) => {
-                    const value = e.target.value;
+                    let value = e.target.value;
                     // Character limit check - prevent input beyond 100 characters
                     if (value.length > 90) {
                       return; // Don't update if exceeds limit
                     }
-                    handleInputChange(e);
+
+                    // Strip non-letter, non-space characters
+                    value = value.replace(/[^a-zA-Z\s]/g, '');
+                    // Collapse multiple spaces and prevent leading space
+                    value = value.replace(/\s+/g, ' ');
+                    if (value.startsWith(' ')) value = value.substring(1);
+
+                    // Apply title case formatting
+                    value = value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+
+                    handleInputChange({
+                      target: { name: 'userName', value }
+                    } as React.ChangeEvent<HTMLInputElement>);
                   }}
                   placeholder="Enter your full name"
                   maxLength={90}
